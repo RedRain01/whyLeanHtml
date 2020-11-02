@@ -1,0 +1,27 @@
+.el-upload-list.el-upload-list--text{
+  display: inline-block;
+  margin-bottom: -10px;
+}
+.el-upload-list__item-name{
+     margin-bottom: -10px; 
+}
+body,html{
+	height: 100%;
+}
+.inputWrap{
+  height: 44px;
+  line-height: 44px;
+}
+/*密码控件样式*/
+.ocx_style{
+  outline: none;
+  height: 43px;
+  line-height: 43px;
+  width: 100%;
+  padding: 0;
+  background-color: #E9E6E6;
+  border: none;
+}
+.ocx_style:focus#content form #password, .ocx_style:hover{
+  background-color: white;
+}
