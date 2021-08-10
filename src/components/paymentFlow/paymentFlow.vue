@@ -68,10 +68,12 @@
 </template>
 
 <script>
+
 import {
     queryPaymentFBypager
 } from "@/api/payment/payment.js";
 import moment from 'moment';
+
 export default {
     name: "staffInfo",
     data() {

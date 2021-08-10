@@ -37,7 +37,6 @@ import footerBar from './footerBar.vue'
 		background-color: #fff;
 		p{
 			padding-left: 30px;
-			background: url(/@/assets/images/pos.png) 0 center no-repeat;
 		}
   }
   .positionStyle{

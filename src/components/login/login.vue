@@ -384,7 +384,7 @@ input,button{
 }
 
 .body{
-   background:url(./cloud.jpg) 0 bottom repeat-x  #049ec4;
+   background:url(./ScreenClip.png) 0 bottom repeat-x  #049ec4;
   -webkit-animation: animate-cloud 20s linear infinite;
   -moz-animation: animate-cloud 20s linear infinite;
   -ms-animation: animate-cloud 20s linear infinite;

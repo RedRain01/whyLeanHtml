@@ -28,7 +28,7 @@ export default new VueRouter({
                 { // 职工信息
                     path: 'staffInfo',
                     name: 'staffInfo',
-                    component: resolve => require(['@/components/staffInfo/staffInfo.vue'], resolve)
+                    component: resolve => require(['@/components/flinkTest/staffInfo.vue'], resolve)
                 },
                 { // 角色管理
                     path: 'roleManager',
@@ -36,9 +36,38 @@ export default new VueRouter({
                     component: resolve => require(['@/components/roleManager/roleManager.vue'], resolve)
                 },
                 { // 支付流水
+                    path: 'liftscore',
+                    name: 'liftscore',
+                    component: resolve => require(['@/components/liftscore/liftscore.vue'], resolve)
+                },
+                { // 二级测试
+                    path: 'roleManager111',
+                    children:[{ // 职工信息
+                    path: 'staffInfo',
+                    name: 'staffInfo',
+                     component: resolve => require(['@/components/flinkTest/staffInfo.vue'], resolve)
+                }]
+                },
+                { // 支付流水
                     path: 'paymentFlow',
                     name: 'paymentFlow',
                     component: resolve => require(['@/components/paymentFlow/paymentFlow.vue'], resolve)
+                },
+              
+                { // 支付流水
+                    path: 'structure',
+                    name: 'structure',
+                    component: resolve => require(['@/components/flinkTest/structure.vue'], resolve)
+                },
+                { // 支付流水
+                    path: 'abountPro',
+                    name: 'abountPro',
+                    component: resolve => require(['@/components/flinkTest/abountPro.vue'], resolve)
+                },
+                { // 支付流水
+                    path: 'summary',
+                    name: 'summary',
+                    component: resolve => require(['@/components/flinkTest/summary.vue'], resolve)
                 },
                 { // 退款流水
                     path: 'refundFlow',

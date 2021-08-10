@@ -2,7 +2,6 @@
   <div>
     <div class="top">
       <div class="top-logopos">
-        <img src="../../../assets/images/logo.png" alt="logo">
       </div>
       <div class="top-right">
         <div class="top-infopos">

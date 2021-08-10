@@ -18,7 +18,8 @@ let config = {
         'element-ui': 'ELEMENT',
         'axios': 'axios',
         'moment': 'moment',
-        'echarts': 'echarts'
+        'echarts': 'echarts',
+        'vCharts': 'VCharts'
     },
     resolve: {
         //extensions: ['.js', '.vue', '.json'], // import 引入文件省略后缀名配置
@@ -73,8 +74,9 @@ let config = {
 };
 switch (environment) {
     case "development": {
-        config.plugins.push(new Webpack.DefinePlugin({ // ------------------------------------------环境变量在此处添加
-                                'process.env.API_ROOT': JSON.stringify("http://sdh.ysepay.com:8200"),
+        config.plugins.push(new Webpack.DefinePlugin({ // ------------------------------------------环境变量在此处添加  167.179.104.197
+                               'process.env.API_ROOT': JSON.stringify("http://sdh.ysepay.com:8200"),
+                              // 'process.env.API_ROOT': JSON.stringify("http://167.179.104.197:4545"),
                                 'process.env.HOME_URL': JSON.stringify("http://c.ysepay.com:9098/sdh_manager/#/"),
                                 'process.env.OCX_DOWNLOAD_URL': JSON.stringify("http://c.ysepay.com:7081/ocx/"),
                             }));
@@ -106,6 +108,7 @@ switch (environment) {
         config.plugins.push(new Webpack.DefinePlugin({ // ------------------------------------------环境变量在此处添加
                                 'process.env.API_ROOT': JSON.stringify(""),
                                 'process.env.HOME_URL': JSON.stringify("https://sdh.ysepay.com/sdh_manager/"),
+                               // 'process.env.HOME_URL': JSON.stringify("https://167.179.104.197/sdh_manager/"),
                                 'process.env.OCX_DOWNLOAD_URL': JSON.stringify("https://newportal.ysepay.com/agent/ocx/"),
                             }));
     }

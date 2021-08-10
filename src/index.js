@@ -8,11 +8,13 @@ import moment from "moment";
 import echarts from 'echarts'
 import "@/assets/css/reset.css";
 import "@/assets/icons/iconfont.css";
-
+import  {vcharts} from 'v-charts'
 Vue.prototype.$ajax = axios;
 Vue.prototype.$moment = moment;
 Vue.prototype.$echarts = echarts;
 Vue.prototype.$message = Message;
+
+
 
 // 注册全局filters
 Object.keys(filters).forEach(key => {

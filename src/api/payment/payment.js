@@ -26,3 +26,11 @@ export function downloadExamine(data){
     data
   })
 }
+
+export function countTop(data){
+  return request({
+    url: '/countTop',
+    method: 'post',
+    data
+  })
+}
