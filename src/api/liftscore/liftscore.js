@@ -1,6 +1,31 @@
 import request from '../request.js';
 
 
+
+export function addEvent(data){
+  return request({
+    url: '/addEvent',
+    method: 'post',
+    data
+  })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export function queryWorkerBypager(data){
     return request({
       url: '/mealManager/woker/queryWorkerBypager',
@@ -16,13 +41,7 @@ export function updateWorkerBysn(data){
     })
 }
 
-export function addWorker(data){
-  return request({
-    url: '/mealManager/woker/addWorker',
-    method: 'post',
-    data
-  })
-}
+
 
 export function deleteWorker(data){
   return request({

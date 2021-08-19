@@ -26,7 +26,7 @@
             ></el-option>
           </el-select>
         </el-form-item>
-         <el-form-item label="分区">
+         <el-form-item label="分111111111区">
           <el-select v-model="partitionNum" placeholder="请选择">
             <el-option
               v-for="item in optionsParti"

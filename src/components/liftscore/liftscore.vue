@@ -47,6 +47,8 @@
           <el-button type="primary" size="small" class="typeSelector" @click="firstQuery()">生成</el-button>
           <el-button type="primary" size="small" class="typeSelector" @click="nextQuery()">查询消费</el-button>
           <el-button type="primary" size="small" class="typeSelector" @click="cleanRedisFun()">清空redis</el-button>
+          <el-button type="primary" size="small" class="typeSelector" @click="addFunLoad()">新增</el-button>
+
         </el-form-item>
       </el-form>
     </div>
@@ -58,17 +60,59 @@
         v-model="addMsg"
       ></el-input>
     </div>
+        <el-dialog :title="optionType=='update'?'编辑职工信息':'新增职工信息'" :visible.sync="dialogFormVisible" :close-on-click-modal="false" :modal="false" width="35%">
+        <div style="padding-top:20px">
+            <el-form :model="form" ref="form" :rules="rules" label-width="120px">
+                <el-form-item label="事件id" prop="sn" v-show="true">
+                    <el-input v-model="form.eventId" type="text" readonly clearable size="medium"></el-input>
+                </el-form-item>
+                <el-form-item label="事件名称" prop="name">
+                    <el-input v-model="form.eventName" type="text" clearable size="medium" maxlength='10'></el-input>
+                </el-form-item>
+                <el-form-item label="事件类型" :label-width="formLabelWidth" prop="workerType">
+                    <el-select v-model="form.eventType" clearable size="medium">
+                        <el-option v-for="(item,key) in eventTypeOptions" :key="key" clearable :label="item" :value="key">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="事件归属" :label-width="formLabelWidth" prop="state">
+                    <el-select v-model="form.eventSort" clearable size="medium">
+                        <el-option v-for="(value,key) in eventSortOptions" :key="key" clearable :label="value" :value="key">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+            </el-form>
+        </div>
+        <div style="text-align:right" class="dialog-footer">
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="updateWorkerF()">确 定</el-button>
+        </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { addOrderDetil, findRedis,cleanRedis} from "@/api/role/role.js";
+import { addEvent} from "@/api/liftscore/liftscore.js";
 import moment from "moment";
 export default {
   name: "staffInfo",
   data() {
     return {
       sp: "",
+       dialogFormVisible: false,
+        form: {
+                eventId: '',
+                eventName: '',
+                eventType: '',
+                eventSort: ''
+            },
+              eventSortOptions: { /* 状态 */
+                '00': '学习',
+                '01': '健康'
+            },
+             eventTypeOptions: { 
+                '00': '时间类型',
+                '01': '次数类型' },
       userCode: "",
       partitionNum:"",
       jg: "",
@@ -80,30 +124,6 @@ export default {
           label: "诺基亚"
         },
         {
-          value: "c2",
-          label: "iphone"
-        },
-        {
-          value: "c3",
-          label: "华为"
-        },
-        {
-          value: "c4",
-          label: "小米"
-        },
-        {
-          value: "c5",
-          label: "oppo"
-        },
-        {
-          value: "c6",
-          label: "一加"
-        },
-        {
-          value: "c7",
-          label: "三星"
-        },
-        {
           value: "",
           label: "均匀"
         }
@@ -112,61 +132,13 @@ export default {
         {
           value: "z1",
           label: "张子玲"
-        },
-        {
-          value: "z2",
-          label: "张子铭"
-        },
-        {
-          value: "z3",
-          label: "张子忠"
-        },
-        {
-          value: "z4",
-          label: "张子德"
-        },
-        {
-          value: "z5",
-          label: "张子高"
-        },
-        {
-          value: "z6",
-          label: "章蒋"
-        },
-        {
-          value: "z7",
-          label: "欧阳"
         }
       ],
       optionsParti: [
         {
           value: "0",
           label: "分区0"
-          },
-        {
-          value: "1",
-          label: "分区1"
-        },
-        {
-          value: "2",
-          label: "分区2"
-        },
-        {
-          value: "3",
-          label: "分区3"
-        },
-        {
-          value: "4",
-          label: "分区4"
-        },
-        {
-          value: "5",
-          label: "分区5"
-        },
-        {
-          value: "",
-          label: "均匀分区"
-        }
+          }
       ]
     };
   },
@@ -176,6 +148,73 @@ export default {
       this.dialogFormVisible = false;
       this.optionType = "";
     },
+     addFunLoad() {
+            this.resetForm();
+            this.dialogFormVisible = true;
+            this.optionType = "add";
+        }, 
+         resetForm() {
+            if (this.$refs["form"] !== undefined) {
+                this.$refs["form"].resetFields();
+            }
+            this.form.eventId = '00';
+            this.form.eventName='';
+            this.form.eventType='';
+            this.form.eventSort='';
+        },
+                updateWorkerF() {
+            if (this.form.eventId == null || this.form.eventId == "") {
+                this.$message.error("请填写姓名");
+                return;
+            } else if (this.form.eventName == null || this.form.eventName == "") {
+                this.$message.error("手机号不能为空");
+                return;
+            } else if (this.form.eventType == null || this.form.eventType == "") {
+                this.$message.error("请选择正确的状态");
+                return;
+            } else if (this.form.eventSort == null || this.form.eventSort == "") {
+                this.$message.error("请选择职工类型");
+                return;
+            }
+            if (this.optionType=="add") {
+                var data = {
+                    eventId: this.form.eventId,
+                    eventName: this.form.eventName,
+                    type: this.form.eventType,
+                    sort:this.form.eventSort
+                }
+                addEvent(data).then(response => {
+                    if (response.status == 'success') {
+                        this.dialogFormVisible = false;
+                        this.$message.success('新增成功');
+                        this.firstQuery();
+                    } else if (response.status == 'error') {
+                        this.$message.error(response.msg);
+                    } else {
+
+                    }
+                })
+            } else if (this.optionType=="update"){
+               var data = {
+                    eventId: this.form.eventId,
+                    eventName: this.form.eventName,
+                    eventType: this.form.eventType,
+                    eventSort:this.form.eventSort
+                }
+                addEvent(data).then(response => {
+                    if (response.status == 'success') {
+                        this.dialogFormVisible = false;
+                        this.$message.success('修改成功');
+                        this.firstQuery();
+                    } else if (response.status == 'error') {
+                        this.$message.error(response.msg);
+                    } else {
+
+                    }
+                })
+            }
+
+        },
     firstQuery() {
       var data = {
         cargoNum: this.sp,

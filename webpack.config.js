@@ -84,7 +84,7 @@ switch (environment) {
         config.devServer = {
             hot: true,
             compress: true,
-            port: 9098, // webpack服务需要监听的端口号
+            port: 9097, // webpack服务需要监听的端口号
             host: '0.0.0.0', // 可以通过本机内网ip访问,这样别人也可以访问,手机也可访问,如果设置成localhost则不然
             disableHostCheck: true,
             overlay: {
