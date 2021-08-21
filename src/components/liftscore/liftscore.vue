@@ -16,7 +16,7 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="购买人">
+        <el-form-item label="购买人123">
           <el-select v-model="userCode" placeholder="请选择">
             <el-option
               v-for="item in optionsMen"
