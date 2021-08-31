@@ -7,7 +7,9 @@
 			<div>
 				<input type="text" placeholder="账号" autocomplete="off" required="" id="username" v-model="userCode"/>
 			</div>
-			<div class="inputWrap" id="password" v-html="box" >
+				
+			<div>
+				<input type="text" placeholder="密码" autocomplete="off" required="" id="password" class="inputWrap"  v-model="password"/>
 			</div>
 			<div>
 				<button @click="submit">登录</button>
@@ -27,7 +29,7 @@
 
 <script>
 
-import { getInitRandom, getMcryptKey, login } from "@/api/login/login";
+import { getInitRandom, login } from "@/api/login/login";
 import { ocxInit, pgeInit, initocx } from "@/../sdh_manager/src/assets/js/PassGuardCtrl.js";
 export default {
 	data(){
@@ -35,6 +37,8 @@ export default {
 			pgeditor:"",
 			box:"",
 			userCode:'',
+			password:''
+			
 		}
 	},
     mounted(){
@@ -49,12 +53,10 @@ export default {
 		methods:{
       //登录提交
       submit(){
-				if (this.userCode&&this.pgeditor.pwdLength() != 0) {
-					getMcryptKey().then(response => {
-						this.pgeditor.pwdSetSk(response.data.mcryptKey);
+				if (this.userCode&&this.password!=null) { 
 						var data = {
 							userCode: this.userCode,
-							password: this.pgeditor.pwdResultSM(),
+							password: this.password
 						}
 						login(data).then(result=>{
 							if (result.status=="success") {
@@ -64,7 +66,7 @@ export default {
 								this.$message.error(result.msg);
 							}
 						})
-					})
+					
 				}else{
 					this.$message.warning("请输入账号或密码");
 				}
