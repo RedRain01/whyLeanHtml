@@ -17,7 +17,7 @@ export function getMcryptKey(data){
 }
 export function login(data){
     return request({
-      url: '/mealManager/common/login',
+      url: '/login',
       method: 'post',
       data
     })

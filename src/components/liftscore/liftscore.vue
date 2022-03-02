@@ -6,7 +6,7 @@
     <div class="titleSlot">搜索</div>
     <div class="searchBar">
       <el-form :inline="true" :model="serchName" class="demo-form-inline">
-        <el-form-item label="选择商品">
+        <el-form-item label="选择商1114444444品">
           <el-select v-model="sp" placeholder="请选择">
             <el-option
               v-for="item in options"
