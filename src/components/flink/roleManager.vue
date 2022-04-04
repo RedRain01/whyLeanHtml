@@ -26,7 +26,7 @@
             ></el-option>
           </el-select>
         </el-form-item>
-         <el-form-item label="分111111111区">
+        <el-form-item label="分111111111区">
           <el-select v-model="partitionNum" placeholder="请选择">
             <el-option
               v-for="item in optionsParti"
@@ -46,7 +46,12 @@
         <el-form-item>
           <el-button type="primary" size="small" class="typeSelector" @click="firstQuery()">生成</el-button>
           <el-button type="primary" size="small" class="typeSelector" @click="nextQuery()">查询消费</el-button>
-          <el-button type="primary" size="small" class="typeSelector" @click="cleanRedisFun()">清空redis</el-button>
+          <el-button
+            type="primary"
+            size="small"
+            class="typeSelector"
+            @click="cleanRedisFun()"
+          >清空redis</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -62,7 +67,8 @@
 </template>
 
 <script>
-import { addOrderDetil, findRedis,cleanRedis} from "@/api/role/role.js";
+
+import { addOrderDetil, findRedis, cleanRedis } from "@/api/role/role.js";
 import moment from "moment";
 export default {
   name: "staffInfo",
@@ -70,7 +76,7 @@ export default {
     return {
       sp: "",
       userCode: "",
-      partitionNum:"",
+      partitionNum: "",
       jg: "",
       num: "",
       addMsg: "",
@@ -142,7 +148,7 @@ export default {
         {
           value: "0",
           label: "分区0"
-          },
+        },
         {
           value: "1",
           label: "分区1"
@@ -177,18 +183,46 @@ export default {
       this.optionType = "";
     },
     firstQuery() {
-      var data = {
-        cargoNum: this.sp,
-        price: this.jg,
-        quantity: this.num,
-        userCode: this.userCode,
-        partitionNum: this.partitionNum
+      //       let route001 = [
+      //   {
+      //     path: "/ttt",
+      //     name: "ttt",
+      //     component: resolve => require(["@/components/liftscore/ttt.vue"], resolve)
+      //   }
+      // ];  
+    //  var dddd=this.$router.options.routes;
+      let routes22 = 
+        {
+          path: "/liftscore",
+          name: "liftscore",
+          component: resolve =>
+            require(["@/components/liftscore/liftscore.vue"], resolve)
+        }
 
-      };
-      this.queryWorkerList(data);
+            localStorage.setItem("aaa", this.$store.state.dynamicRouters );  
+  //            var eeee=this.$store.state.dynamicRouters;
+  //  console.log()
+  //   this.$store.commit('updateRouter',routes22);
+
+  //   var ttttt=this.$store.state.dynamicRouters;
+  //         debugger
+
+      // this.$store.state.dynamicRouters.push(routes22);
+      // var dddss=this.$store.state.dynamicRouters;
+      // debugger
+      // console.log();
+     // this.$router.push({ name: "liftscore" });
+      // var data = {
+      //   cargoNum: this.sp,
+      //   price: this.jg,
+      //   quantity: this.num,
+      //   userCode: this.userCode,
+      //   partitionNum: this.partitionNum
+      // };
+      // this.queryWorkerList(data);
     },
-    cleanRedisFun(){
-  var data = {};
+    cleanRedisFun() {
+      var data = {};
       cleanRedis(data)
         .then(response => {
           this.addMsg = response;

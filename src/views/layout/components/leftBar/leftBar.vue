@@ -4,6 +4,7 @@
       <el-menu :default-active="$route.path" class="el-menu-vertical-demo" router>
         <leftBarItem :routes="items"></leftBarItem>
       </el-menu>
+
     </div>
   </div>
 </template>
@@ -15,79 +16,62 @@ export default {
   data() {
     return {
       items: [
-        {
-          icon: "fontFamily sdh-icon-web-icon-",
-          index: "/note",
-          title: "项目介绍",
-          childs: [ {
-              icon: "structure",
-              index: "structure",
-              title: "项目架构",
-              childs: []
-						},
-						{
-              icon: "abountPro",
-              index: "abountPro",
-              title: "功能流程",
-              childs: []
-						},
-						{
-              icon: "summary",
-              index: "summary",
-              title: "技术总结",
-              childs: []
-            }]
-				},
-				 {
-          icon: "fontFamily sdh-icon-jiaoseguanli",
-          index: "/roleManager",
-          title: "数据产生",
-          childs: []
-				},
-        {
-          icon: "fontFamily sdh-icon-jiaoseguanli",
-          index: "/liftscore",
-          title: "生活分",
-          childs: []
-				},
-				 {
-          icon: "fontFamily sdh-icon-huihuilicaishi",
-          index: "/staffInfo",
-          title: "动态统计",
-          childs: []
-				}
-				// ,{
-        //   icon: "fontFamily sdh-icon-web-icon-",
-        //   index: "/paymentFlow",
-        //   title: "订单产生",
-        //   childs: []
-				// },{
-        //   icon: "fontFamily sdh-icon-jiaoseguanli",
-        //   index: "/roleManager111",
-        //   title: "二级测试",
-        //   childs: [
-        //     {
-        //       icon: "staffInfo",
-        //       index: "staffInfo",
-        //       title: "flink处理后",
-        //       childs: []
-        //     }
-        //   ]
-        // },
         // {
-        //   icon: "fontFamily sdh-icon-tuikuan",
-        //   index: "/refundFlow",
-        //   title: "汇总",
+        //   icon: "el-icon-star-off",
+        //   index: "/liftscore",
+        //   title: "生活分",
         //   childs: []
-        // }
+        // },
+        //    {
+        //   icon: "el-icon-setting",
+        //   index: "/flink",
+        //   title: "flink学习",
+        //   childs: []
+        // },
+        //    {
+        //   icon: "fontFamily sdh-icon-huihuilicaishi",
+        //   index: "/user",
+        //   title: "user",
+        //   childs: []
+				// },
+				//  {
+        //   icon: "el-icon-info",
+        //   index: "/job",
+        //   title: "求职",
+        //   childs: []
+				// }
       ]
     };
   },
-  methods: {},
-  computed: {
-    onRoutes() {
-      return this.$route.path.replace("/", "");
+   mounted() {
+     this.test123()
+  },
+  methods: {
+    test123(){
+      debugger
+      var menu = JSON.parse(localStorage.getItem('menu'));
+      var menuData=[];
+      for (let index = 0; index < menu.length; index++) {
+        if (menu[index].state ==='12') {
+           var menuObj={
+            icon:menu[index].menuIcon,
+            index:'/'+menu[index].menuName,
+            title:menu[index].menuTitle,
+            childs:[]
+          }
+          menuData.push(menuObj)     
+        }
+      }
+      this.items=menuData
     }
+  },
+  computed: {
+    test(){
+
+    }
+    // onRoutes() {
+    //   return this.$route.path.replace("/", "");
+    // }
   },
   components: {
     leftBarItem

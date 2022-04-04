@@ -25,6 +25,9 @@
 
 <script>
 export default {
+   mounted() {
+        //  this.timer = setInterval(this.firstQuery, 7000);
+      },
   name: "leftBarItem",
   props: {
     routes: {

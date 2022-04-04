@@ -3,7 +3,12 @@
     <div class="positionBar">
       <span class="fontFamily sdh-icon-dingwei"></span>&nbsp;&nbsp;当前位置 > 订单信息
     </div>
-    <ve-line :data="chartData"></ve-line>
+
+    <el-form :inline="true" :model="serchName" class="demo-form-inline">
+      <el-form-item>
+        <el-button type="primary" size="small" class="typeSelector" @click="firstQuery()">刷新</el-button>
+      </el-form-item>
+    </el-form>    <ve-line :data="chartData"></ve-line>
 
     <ve-pie :data="portData"></ve-pie>
 
@@ -46,7 +51,7 @@ export default {
     };
   },
   mounted() {
-     this.timer = setInterval(this.firstQuery, 7000);
+   //  this.timer = setInterval(this.firstQuery, 7000);
   },
   methods: {
     firstQuery() {

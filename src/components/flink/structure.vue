@@ -9,9 +9,8 @@
 
 
 <script>
-import axios from 'axios';
 export default {
-  name: 'borrow',
+  name: 'structure',
   data () {
     return {
     // 图片路径

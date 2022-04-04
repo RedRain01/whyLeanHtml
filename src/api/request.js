@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { Message,MessageBox } from 'element-ui'
-
-/* axios.defaults.withCredentials=true; */
+/*axios.defaults.withCredentials=true; */
 axios.defaults.headers['Content-Type'] = 'application/json';
 
 const instance = axios.create({
@@ -11,10 +10,19 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(config => {
-    return config;
-  }, error => {
-    Promise.reject(error);
-})
+    if (config.url.match('login')) {
+        return config;
+    } else {
+        if (localStorage.getItem('Authorization')) {
+            config.headers.Authorization = localStorage.getItem('Authorization');
+            return config;
+          }else{
+           // VueRouter.push("/login"); // 跳转到登录页面
+           // this.$router.push("/login"); // 跳转到登录页面
+            return Promise.reject(error);   
+          }
+    }
+  })
 
 instance.interceptors.response.use(function(response){
     var data = response.data;

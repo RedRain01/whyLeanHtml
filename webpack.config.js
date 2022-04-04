@@ -75,22 +75,19 @@ let config = {
 switch (environment) {
     case "development": {
         config.plugins.push(new Webpack.DefinePlugin({ // ------------------------------------------环境变量在此处添加  167.179.104.197
-                               'process.env.API_ROOT': JSON.stringify("http://sdh.ysepay.com:8200"),
-                              // 'process.env.API_ROOT': JSON.stringify("http://167.179.104.197:4545"),
-                                'process.env.HOME_URL': JSON.stringify("http://c.ysepay.com:9098/sdh_manager/#/"),
-                                'process.env.OCX_DOWNLOAD_URL': JSON.stringify("http://c.ysepay.com:7081/ocx/"),
+                               'process.env.API_ROOT': JSON.stringify("http://localhost:8200"),
                             }));
         config.devtool = '#cheap-module-eval-source-map';
         config.devServer = {
             hot: true,
             compress: true,
-            port: 9097, // webpack服务需要监听的端口号
+            port: 8211, // webpack服务需要监听的端口号
             host: '0.0.0.0', // 可以通过本机内网ip访问,这样别人也可以访问,手机也可访问,如果设置成localhost则不然
             disableHostCheck: true,
             overlay: {
                 errors: true // 这个可有可无,webpack编译出现的错误会出现在网页中,便于更改
             },
-            publicPath: '/sdh_manager/',
+            publicPath: '/why_manager/',
             historyApiFallback: true // 路由history模式支持
         };
         config.plugins.push(new Webpack.HotModuleReplacementPlugin());
@@ -99,17 +96,12 @@ switch (environment) {
     case "test": {
         config.plugins.push(new Webpack.DefinePlugin({ // ------------------------------------------环境变量在此处添加
                                 'process.env.API_ROOT': JSON.stringify(""),
-                                'process.env.HOME_URL': JSON.stringify("http://c.ysepay.com:7081/sdh_manager/"),
-                                'process.env.OCX_DOWNLOAD_URL': JSON.stringify("http://c.ysepay.com:7081/ocx/"),
                             }));
     }
     break;
     case "production": {
         config.plugins.push(new Webpack.DefinePlugin({ // ------------------------------------------环境变量在此处添加
                                 'process.env.API_ROOT': JSON.stringify(""),
-                                'process.env.HOME_URL': JSON.stringify("https://sdh.ysepay.com/sdh_manager/"),
-                               // 'process.env.HOME_URL': JSON.stringify("https://167.179.104.197/sdh_manager/"),
-                                'process.env.OCX_DOWNLOAD_URL': JSON.stringify("https://newportal.ysepay.com/agent/ocx/"),
                             }));
     }
     break;

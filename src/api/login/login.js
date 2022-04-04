@@ -17,7 +17,7 @@ export function getMcryptKey(data){
 }
 export function login(data){
     return request({
-      url: '/login',
+      url: 'api/auth/login',
       method: 'post',
       data
     })
@@ -25,7 +25,7 @@ export function login(data){
 //退出登录
 export function logout(data){
     return request({
-      url: '/mealManager/common/logout',
+      url: 'api/auth/logout',
       method: 'post',
       data
     })
