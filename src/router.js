@@ -9,8 +9,8 @@ Vue.use(VueRouter)
 
 const router = new VueRouter({
     mode: process.env.NODE_ENV == 'development' ? '' : 'history',
-   base: '/why_manager',
-    // base: '',
+   //   base: '/why_manager',
+    base: '',
     //  base: '',
    routes: [
 
@@ -57,9 +57,6 @@ const router = new VueRouter({
 
 
 router.beforeEach((to, from, next) => {
- 
- 
- 
     var routersss = store.state.dynamicRouters
     // var menus = localStorage.getItem('aaa');
     var children = [];
@@ -92,13 +89,11 @@ router.beforeEach((to, from, next) => {
                 var routerBolen=store.getters.getrouterNum>10?true:false;
                 if (routerBolen) {
                     store.state.routerNum =1
-                  // router.push('login')
                     next({ path: 'login' })
                  }else{
                     store.state.routerNum ++
                     router.addRoutes(routersss);
                     next({ ...to, replace: true })
-                   // router.replace(to.path)
                  }
             } else {
                 next()

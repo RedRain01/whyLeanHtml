@@ -312,7 +312,6 @@ export default {
     };
   },
   mounted() {
-    this.firstQuery();
   },
   methods: {
     updateTaskSplitFun(data) {

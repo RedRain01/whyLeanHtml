@@ -26,7 +26,7 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="分111111111区">
+        <el-form-item label="分区">
           <el-select v-model="partitionNum" placeholder="请选择">
             <el-option
               v-for="item in optionsParti"
@@ -68,7 +68,7 @@
 
 <script>
 
-import { addOrderDetil, findRedis, cleanRedis } from "@/api/role/role.js";
+import { addOrderDetil, findRedis, cleanRedis } from "@/api/flink/flink.js";
 import moment from "moment";
 export default {
   name: "staffInfo",
@@ -183,43 +183,14 @@ export default {
       this.optionType = "";
     },
     firstQuery() {
-      //       let route001 = [
-      //   {
-      //     path: "/ttt",
-      //     name: "ttt",
-      //     component: resolve => require(["@/components/liftscore/ttt.vue"], resolve)
-      //   }
-      // ];  
-    //  var dddd=this.$router.options.routes;
-      let routes22 = 
-        {
-          path: "/liftscore",
-          name: "liftscore",
-          component: resolve =>
-            require(["@/components/liftscore/liftscore.vue"], resolve)
-        }
-
-            localStorage.setItem("aaa", this.$store.state.dynamicRouters );  
-  //            var eeee=this.$store.state.dynamicRouters;
-  //  console.log()
-  //   this.$store.commit('updateRouter',routes22);
-
-  //   var ttttt=this.$store.state.dynamicRouters;
-  //         debugger
-
-      // this.$store.state.dynamicRouters.push(routes22);
-      // var dddss=this.$store.state.dynamicRouters;
-      // debugger
-      // console.log();
-     // this.$router.push({ name: "liftscore" });
-      // var data = {
-      //   cargoNum: this.sp,
-      //   price: this.jg,
-      //   quantity: this.num,
-      //   userCode: this.userCode,
-      //   partitionNum: this.partitionNum
-      // };
-      // this.queryWorkerList(data);
+      var data = {
+        cargoNum: this.sp,
+        price: this.jg,
+        quantity: this.num,
+        userCode: this.userCode,
+        partitionNum: this.partitionNum
+      };
+      this.addOrderFun(data);
     },
     cleanRedisFun() {
       var data = {};
@@ -241,7 +212,7 @@ export default {
           this.addMsg = "查询异常";
         });
     },
-    queryWorkerList(data) {
+    addOrderFun(data) {
       this.loading = true;
       addOrderDetil(data)
         .then(response => {

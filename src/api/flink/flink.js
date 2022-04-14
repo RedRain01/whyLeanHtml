@@ -2,7 +2,7 @@ import request from '../request.js';
 
 export function addOrderDetil(data){
   return request({
-    url: 'api/event/addOrderDetil',
+    url: 'api/flink/addOrderDetil',
     method: 'post',
     data
   })
@@ -10,7 +10,7 @@ export function addOrderDetil(data){
 
 export function findRedis(data){
   return request({
-    url: 'api/event/findRedis',
+    url: 'api/flink/findRedis',
     method: 'post',
     data
   })
@@ -18,7 +18,7 @@ export function findRedis(data){
 
 export function cleanRedis(data){
   return request({
-    url: 'api/event/cleanRedis',
+    url: 'api/flink/cleanRedis',
     method: 'post',
     data
   })
@@ -27,7 +27,7 @@ export function cleanRedis(data){
 
 export function countTop(data){
   return request({
-    url: '/countTop',
+    url: 'api/flink//countTop',
     method: 'post',
     data
   })

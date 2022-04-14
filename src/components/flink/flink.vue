@@ -1,60 +1,52 @@
 <template>
-
   <div class="pageBody">
-    
     <div class="positionBar">
       <span class="fontFamily sdh-icon-dingwei"></span>&nbsp;&nbsp;当前位置 >flink
     </div>
     <el-tabs type="border-card">
-     
-    <el-tab-pane>
-        <span slot="label">
-          <i class="el-icon-date"></i> 今日分数
-        </span>
-       <AbountPro></AbountPro>
-      </el-tab-pane> 
-      <el-tab-pane label="事件列表">
-      <Summary></Summary>
-      </el-tab-pane>
-      <el-tab-pane label="任务树">
-        <StaffInfo></StaffInfo>
-      </el-tab-pane>
-      <el-tab-pane label="任务统计">
-        <Structure></Structure>
-      </el-tab-pane>
-        <el-tab-pane label="任务统计">
+        <el-tab-pane label="产生订单">
         <RoleManager></RoleManager>
       </el-tab-pane>
+        <el-tab-pane label="动态统计">
+        <StaffInfo></StaffInfo>
+      </el-tab-pane>
+      <el-tab-pane label="业务场景">
+        <Summary></Summary>
+      </el-tab-pane>
+      <el-tab-pane label="开发流程">
+        <AbountPro></AbountPro>
+      </el-tab-pane>
+      <el-tab-pane label="流程图">
+        <Structure></Structure>
+      </el-tab-pane>
+       <el-tab-pane label="未来">
+        <Future></Future>
+      </el-tab-pane>
+    
     </el-tabs>
   </div>
 </template>
 <script>
-
-
-import AbountPro from '@/components/flink/abountPro.vue'
-import StaffInfo from '@/components/flink/staffInfo.vue'
-import Summary from '@/components/flink/summary.vue'
-import Structure from '@/components/flink/structure.vue'
-import RoleManager from '@/components/flink/roleManager.vue'
+import AbountPro from "@/components/flink/abountPro.vue";
+import StaffInfo from "@/components/flink/staffInfo.vue";
+import Summary from "@/components/flink/summary.vue";
+import Structure from "@/components/flink/structure.vue";
+import RoleManager from "@/components/flink/roleManager.vue";
+import Future from "@/components/flink/future.vue";
 export default {
-    components: {
+  components: {
     AbountPro,
     StaffInfo,
     Summary,
     Structure,
+    Future,
     RoleManager
   },
   data() {
-    return {
-      
-    };
+    return {};
   },
-  mounted() {
-
-  },
-  methods: {
-    
-  }
+  mounted() {},
+  methods: {}
 };
 </script>
 <style lang="scss" scoped>

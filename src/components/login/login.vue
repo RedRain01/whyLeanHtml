@@ -3,7 +3,7 @@
     <div class="container">
       <section id="content">
         <div id="form">
-          <h1>新月</h1>
+          <h1>新222月</h1>
           <div>
             <input
               type="text"
@@ -27,7 +27,7 @@
             />
           </div>
           <div>
-            <button @click="submit">登录</button>
+            <button @click="submit">登录123</button>
             <!-- <a href="#">忘记密码?</a> -->
             <!-- <a href="#">Register</a> -->
           </div>
@@ -77,6 +77,7 @@ export default {
     //登录提交
     submit() {
       if (this.userCode && this.password != null) {
+        debugger
         var data = {
           username: this.userCode,
           password: this.password

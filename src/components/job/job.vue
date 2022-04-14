@@ -6,24 +6,18 @@
       <span class="fontFamily sdh-icon-dingwei"></span>&nbsp;&nbsp;当前位置 >求职
     </div>
     <el-tabs type="border-card">
-     
-    <el-tab-pane>
-        <span slot="label">
-          <i class="el-icon-date"></i> 今日分数
-        </span>
-       <AbountPro></AbountPro>
-      </el-tab-pane> 
-      <el-tab-pane label="事件列表">
-      <Summary></Summary>
+      <el-tab-pane label="个人简介">
+         <Resume></Resume>
       </el-tab-pane>
-      <el-tab-pane label="任务树">
-        <StaffInfo></StaffInfo>
+      <el-tab-pane label="工作经历">
+          <Experience></Experience>
+      
       </el-tab-pane>
-      <el-tab-pane label="任务统计">
-        <Structure></Structure>
+      <el-tab-pane label="知识分享">
+      <Knowledge></Knowledge>
       </el-tab-pane>
-        <el-tab-pane label="任务统计">
-        <RoleManager></RoleManager>
+        <el-tab-pane label="价值观">
+        <Sense></Sense>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -31,18 +25,16 @@
 <script>
 
 
-import AbountPro from '@/components/flink/abountPro.vue'
-import StaffInfo from '@/components/flink/staffInfo.vue'
-import Summary from '@/components/flink/summary.vue'
-import Structure from '@/components/flink/structure.vue'
-import RoleManager from '@/components/flink/roleManager.vue'
+import Experience from '@/components/job/experience.vue'
+import Knowledge from '@/components/job/knowledge.vue'
+import Resume  from '@/components/job/resume.vue'
+import Sense from '@/components/job/sense.vue'
 export default {
-    components: {
-    AbountPro,
-    StaffInfo,
-    Summary,
-    Structure,
-    RoleManager
+   components : {
+    Experience,
+    Knowledge,
+    Resume,
+    Sense
   },
   data() {
     return {

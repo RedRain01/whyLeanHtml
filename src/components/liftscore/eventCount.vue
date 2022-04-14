@@ -56,9 +56,6 @@ export default {
   },
   methods: {
     countQuery() {
-      // var iii = JSON.parse(localStorage.getItem("aaa"));
-      // localStorage.setItem("aaa", JSON.stringify(iii));
-
       var data = {
         creatDate:this.dateParam
       };

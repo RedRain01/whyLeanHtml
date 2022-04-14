@@ -103,7 +103,7 @@
       </div>
       <div style="text-align:right" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addEventFun()">确 定</el-button>\
+        <el-button type="primary" @click="addEventFun()">确 定</el-button>
       </div>
     </el-dialog>
     <!-- 新增事件树弹框end  -->
@@ -170,6 +170,12 @@ export default {
     },
     append(data) {
       this.resetForm();
+      this.form.eventName ='';
+      this.form.proportion = 0;
+      this.form.remark = '';
+      this.form.fullNum =0;
+      this.form.eventType ='';
+      this.form.nodeIdentity = '';
       this.form.parent = data.eventId;
       this.form.level = data.level;
       this.dialogFormVisible = true;
@@ -177,13 +183,13 @@ export default {
     },
     show(data) {
       this.resetForm();
-
       this.form.eventId = data.eventId;
       this.form.eventName = data.eventName;
       var iii = parseInt(data.proportion);
       this.form.proportion = iii;
       this.form.remark = data.remark;
       this.form.fullNum = data.ullNum;
+      this.form.eventType = data.eventType;
       this.form.nodeIdentity = data.identity;
       this.dialogFormVisible = true;
       this.optionType = "update";
@@ -250,32 +256,48 @@ export default {
     },
     //new ing 新增事件
     addEventFun() {
-      // if (this.form.eventName == null || this.form.eventName == "") {
-      //       this.$message.error("名称不能为空");
-      //       return;
-      //   } else if (this.form.eventType == null || this.form.eventType == "") {
-      //       this.$message.error("事件类型");
-      //       return;
-      //   } else if (this.form.level == null || this.form.level == "") {
-      //       this.$message.error("事件等级");
-      //       return;
-      //   }
-      //   else if (this.form.parent == null || this.form.parent == "") {
-      //       this.$message.error("归属");
-      //       return;
-      //   }
-      //   else if (this.form.eventSort == null || this.form.eventSort == "") {
-      //       this.$message.error("事件等级");
-      //       return;
-      //   }
-      //   else if (this.form.proportion == null || this.form.proportion == "") {
-      //       this.$message.error("分数占比");
-      //       return;
-      //   }
-      //   else if (this.form.parent == null || this.form.parent == "") {
-      //       this.$message.error("备注");
-      //       return;
-      //   }
+      debugger
+      if (this.form.nodeIdentity == "01") {
+        //分类
+        if (this.form.eventName == null || this.form.eventName == "") {
+          this.$message.error("名称不能为空");
+          return;
+        } else if (this.form.proportion == null || this.form.proportion == "") {
+          this.$message.error("占比不能为空");
+          return;
+        }
+      } else if (this.form.nodeIdentity == "11") {
+        //任务
+        if (this.form.eventName == null || this.form.eventName == "") {
+          this.$message.error("名称不能为空");
+          return;
+        } else if (this.form.proportion == null || this.form.proportion == "") {
+          this.$message.error("占比不能为空");
+          return;
+        } else if (
+          this.form.nodeIdentity == null ||
+          this.form.nodeIdentity == ""
+        ) {
+          this.$message.error("身份不能为空");
+          return;
+        } else if (this.form.eventType == null || this.form.eventType == "") {
+          this.$message.error("类型不能为空");
+          return;
+        }
+
+        if (this.form.eventType == "00" || this.form.eventType == "11") {
+          //时间长度类型
+          if (this.form.fullNum == null || this.form.fullNum == "") {
+            this.$message.error("额度不能为空");
+            return;
+          }
+        }
+        //任务
+      } else {
+        this.$message.error("身份信息错误");
+        return;
+      }
+
       if (this.optionType == "add") {
         var data = {
           eventName: this.form.eventName,
@@ -300,7 +322,7 @@ export default {
         });
       } else if (this.optionType == "update") {
         var data = {
-          eventName:this.form.eventName,
+          eventName: this.form.eventName,
           eventId: this.form.eventId,
           proportion: this.form.proportion,
           ullNum: this.form.fullNum,

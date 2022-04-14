@@ -1,27 +1,24 @@
 <template>
   <div class="pageBody">
     <div class="positionBar">
-      <span class="fontFamily sdh-icon-dingwei"></span>&nbsp;&nbsp;当前位置 > 订单信息
+      <span class="fontFamily sdh-icon-dingwei"></span>&nbsp;&nbsp;当前位置 > 动态统计
     </div>
 
     <el-form :inline="true" :model="serchName" class="demo-form-inline">
       <el-form-item>
         <el-button type="primary" size="small" class="typeSelector" @click="firstQuery()">刷新</el-button>
       </el-form-item>
-    </el-form>    <ve-line :data="chartData"></ve-line>
-
-    <ve-pie :data="portData"></ve-pie>
-
+    </el-form>   
+     <ve-line width="1400px" height="400px"  :data="chartData"></ve-line>
+    <ve-pie width="1400px" height="400px"  :data="portData"></ve-pie>
     <el-form :inline="true" :model="serchName" class="demo-form-inline">
-      <el-form-item>
-        <el-button type="primary" size="small" class="typeSelector" @click="firstQuery()">刷新</el-button>
-      </el-form-item>
+   
     </el-form>
   </div>
 </template>
 
 <script>
-import { countTop } from "@/api/payment/payment.js";
+import { countTop } from "@/api/flink/flink.js";
 export default {
   name: "staffInfo",
   data() {
