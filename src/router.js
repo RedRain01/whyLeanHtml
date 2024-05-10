@@ -18,40 +18,36 @@ const router = new VueRouter({
             path: '/login',
             name: 'login',
             component: resolve => require(['@/components/login/login.vue'], resolve)
-        }
-        // { // first
-        //     path: '/404',
-        //     name: '404',
-        //     component: resolve => require(['@/components/liftscore/first.vue'], resolve)
-        // }, {
-        //     path: "/staffInfo",
-        //     name: "staffInfo",
-        //     component: resolve =>
-        //         require(["@/components/flinkTest/staffInfo.vue"], resolve)
-        // },
-        // { // first
-        //     path: '/rrr',
-        //     name: 'rrr',
-        //     component: resolve => require(['@/components/liftscore/first.vue'], resolve)
-        // },
+        },
+        { // first
+            path: '/404',
+            name: '404',
+            component: resolve => require(['@/components/liftscore/first.vue'], resolve)
+        },
+        { // first
+            path: '/rrr',
+            name: 'rrr',
+            component: resolve => require(['@/components/liftscore/first.vue'], resolve)
+        },
 
-        // {
-        //     path: '',
-        //     name: 'why_manager',
-        //     component: resolve => require(['@/views/layout/layout.vue'], resolve),
-        //     redirect: '/login',
-        //     children: [{ // 角色管理
-        //         path: 'roleManager',
-        //         name: 'roleManager',
-        //         component: resolve => require(['@/components/roleManager/roleManager.vue'], resolve)
-        //     },
-        //     { // 支付流水
-        //         path: 'liftscore',
-        //         name: 'liftscore',
-        //         component: resolve => require(['@/components/liftscore/liftscore.vue'], resolve)
-        //     },
-        //     ]
-        // }
+        {
+            path: '',
+            name: 'why_manager',
+            component: resolve => require(['@/views/layout/layout.vue'], resolve),
+            redirect: '/login',
+            children: [
+            //     { // 角色管理
+            //     path: 'roleManager',
+            //     name: 'roleManager',
+            //     component: resolve => require(['@/components/roleManager/roleManager.vue'], resolve)
+            // },
+            { // 支付流水
+                path: 'liftscore',
+                name: 'liftscore',
+                component: resolve => require(['@/components/liftscore/liftscore.vue'], resolve)
+            },
+            ]
+        }
     ]
 })
 
@@ -99,7 +95,8 @@ router.beforeEach((to, from, next) => {
                 next()
             }
         } else {
-            next({ path: 'login' })
+            next()
+           // next({ path: 'login' })  取消登录验证
         }
         next()
     }

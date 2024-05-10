@@ -16,25 +16,25 @@ export default {
   data() {
     return {
       items: [
-        // {
-        //   icon: "el-icon-star-off",
-        //   index: "/liftscore",
-        //   title: "生活分",
-        //   childs: []
-        // },
-        //    {
-        //   icon: "el-icon-setting",
-        //   index: "/flink",
-        //   title: "flink学习",
-        //   childs: []
-        // },
-        //    {
-        //   icon: "fontFamily sdh-icon-huihuilicaishi",
-        //   index: "/user",
-        //   title: "user",
-        //   childs: []
-				// },
-				//  {
+        {
+          icon: "el-icon-star-off",
+          index: "/liftscore",
+          title: "生活分",
+          childs: []
+        },
+           {
+          icon: "el-icon-setting",
+          index: "/flink",
+          title: "flink学习",
+          childs: []
+        },
+           {
+          icon: "fontFamily sdh-icon-huihuilicaishi",
+          index: "/user",
+          title: "user",
+          childs: []
+				}
+        // ,{
         //   icon: "el-icon-info",
         //   index: "/job",
         //   title: "求职",

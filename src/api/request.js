@@ -17,9 +17,10 @@ instance.interceptors.request.use(config => {
             config.headers.Authorization = localStorage.getItem('Authorization');
             return config;
           }else{
+            return config;
            // VueRouter.push("/login"); // 跳转到登录页面
            // this.$router.push("/login"); // 跳转到登录页面
-            return Promise.reject(error);   
+           // return Promise.reject(error);   
           }
     }
   })

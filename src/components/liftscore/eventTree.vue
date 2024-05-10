@@ -1,5 +1,7 @@
 <template>
   <div class="pageBody">
+    <el-button type="primary" size="mini" class="typeSelector" @click="queryTree()">查询</el-button>
+
     <div class="custom-tree-container">
       <div class="block">
         <el-tree
@@ -245,13 +247,19 @@ export default {
     },
     //new ing 获取树形
     queryTree() {
+      
+      console.log("------63336666--------------");
       queryEventByUserCode().then(response => {
-        if (response.status == "success") {
-          this.eventDate = response.list;
-        } else if (response.status == "error") {
-          this.$message.error(response.msg);
-        } else {
-        }
+        debugger
+
+        console.log("------63336666--------------"+response);
+        this.eventDate =response
+        // if (response.status == "success") {
+        //   this.eventDate = response.list;
+        // } else if (response.status == "error") {
+        //   this.$message.error(response.msg);
+        // } else {
+        // }
       });
     },
     //new ing 新增事件
