@@ -178,7 +178,7 @@ export default {
       this.form.fullNum =0;
       this.form.eventType ='';
       this.form.nodeIdentity = '';
-      this.form.parent = data.eventId;
+      this.form.parent = data.id;
       this.form.level = data.level;
       this.dialogFormVisible = true;
       this.optionType = "add";
@@ -247,23 +247,18 @@ export default {
     },
     //new ing 获取树形
     queryTree() {
-      
-      console.log("------63336666--------------");
       queryEventByUserCode().then(response => {
-        debugger
-
-        console.log("------63336666--------------"+response);
-        this.eventDate =response
-        // if (response.status == "success") {
-        //   this.eventDate = response.list;
-        // } else if (response.status == "error") {
-        //   this.$message.error(response.msg);
-        // } else {
-        // }
+        if (response.status == "success") {
+          this.eventDate = response.data;
+        } else if (response.status == "error") {
+          this.$message.error(response.msg);
+        } else {
+        }
       });
     },
     //new ing 新增事件
     addEventFun() {
+      console.log("-----55-------"+this.form)
       debugger
       if (this.form.nodeIdentity == "01") {
         //分类
@@ -307,6 +302,7 @@ export default {
       }
 
       if (this.optionType == "add") {
+        debugger
         var data = {
           eventName: this.form.eventName,
           eventType: this.form.eventType,
@@ -329,6 +325,7 @@ export default {
           }
         });
       } else if (this.optionType == "update") {
+        debugger
         var data = {
           eventName: this.form.eventName,
           eventId: this.form.eventId,

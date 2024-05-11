@@ -24,6 +24,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" size="mini" class="typeSelector" @click="firstQuery()">查询</el-button>
+          <el-button type="primary" size="mini" class="typeSelector" @click="createEventOrder()">开始</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -214,6 +215,7 @@ import {
   queryEventOrder,
   startEvenTask,
   endEvenTask,
+  startTaskOrder,
   updateTaskSplit
 } from "@/api/liftscore/liftscore.js";
 import moment from "moment";
@@ -406,6 +408,19 @@ export default {
         });
       }
     },
+
+    createEventOrder() {
+      var data = {
+        };
+        startTaskOrder(data).then(response => {
+          if (response.status == "success") {
+            this.$message.success("修改成功");
+            this.firstQuery();
+          } else if (response.status == "error") {
+            this.$message.error(response.msg);
+          }
+        });
+    },
     firstQuery() {
       var data = {
         state: this.eventOrderStaSerc,
@@ -417,7 +432,7 @@ export default {
         .then(response => {
           if (response.status == "success") {
             this.loading = false;
-            this.tableDataEventOrder = response.list;
+            this.tableDataEventOrder = response.data;
           } else if (response.status == "error") {
             this.$message.error(response.msg);
           }

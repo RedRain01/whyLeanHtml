@@ -104,9 +104,13 @@ export function updateEvent(data){
   })
 }
 
-
-
-updateEvent
+export function startTaskOrder(data){
+  return request({
+    url: '/api/event/startTaskOrder',
+    method: 'post',
+    data
+  })
+}
 
 
 export function queryWorkerBypager(data){
@@ -141,5 +145,7 @@ export function downModel(data){
     data
   })
 }
+
+
 
 
