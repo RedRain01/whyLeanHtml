@@ -14,6 +14,7 @@
         >
           <span class="custom-tree-node" slot-scope="{ node, data }">
             <span>{{ node.label}}</span>
+            <el-tag type="success" size="mini">{{data.proportion}}</el-tag>
             <span>
               <el-button
                 type="text"
@@ -128,6 +129,41 @@ export default {
   data() {
     var data = [];
     return {
+      data: [{
+          id: 1,
+          label: '一级 1',
+          children: [{
+            id: 4,
+            label: '二级 1-1',
+            children: [{
+              id: 9,
+              label: '三级 1-1-1'
+            }, {
+              id: 10,
+              label: '三级 1-1-2'
+            }]
+          }]
+        }, {
+          id: 2,
+          label: '一级 2',
+          children: [{
+            id: 5,
+            label: '二级 2-1'
+          }, {
+            id: 6,
+            label: '二级 2-2'
+          }]
+        }, {
+          id: 3,
+          label: '一级 3',
+          children: [{
+            id: 7,
+            label: '二级 3-1'
+          }, {
+            id: 8,
+            label: '二级 3-2'
+          }]
+        }],
       ttt: 50,
       eventDate: data,
       dialogFormVisible: false,
@@ -178,7 +214,7 @@ export default {
       this.form.fullNum =0;
       this.form.eventType ='';
       this.form.nodeIdentity = '';
-      this.form.parent = data.id;
+      this.form.parent = data.eventId;
       this.form.level = data.level;
       this.dialogFormVisible = true;
       this.optionType = "add";
@@ -258,7 +294,6 @@ export default {
     },
     //new ing 新增事件
     addEventFun() {
-      console.log("-----55-------"+this.form)
       debugger
       if (this.form.nodeIdentity == "01") {
         //分类
@@ -302,6 +337,7 @@ export default {
       }
 
       if (this.optionType == "add") {
+        console.log("----------"+this.form.eventId)
         debugger
         var data = {
           eventName: this.form.eventName,

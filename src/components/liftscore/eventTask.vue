@@ -44,7 +44,7 @@
         <el-table-column label="" min-width="100">
               <template slot-scope="scope">
               <p>{{scope.row.eventName}}</p>
-                <el-progress v-if="scope.row.eventType!='01'" :color=scope.row|dateFormat :text-inside="true" :stroke-width="18" :percentage=(scope.row.num*100/scope.row.ullNum).toFixed(2)>  </el-progress>
+                <el-progress v-if="scope.row.eventType!='01'" :color=scope.row|dateFormat :text-inside="true" :stroke-width="18" :percentage=(scope.row.num*100/scope.row.fullNum).toFixed(2)>  </el-progress>
                 <el-progress v-if="scope.row.eventType=='01'" :color=scope.row|dateFormat001  :show-text="false" :text-inside="false" :stroke-width="18" :percentage=100>  </el-progress>
               </template>
         </el-table-column>
@@ -52,25 +52,25 @@
         <el-table-column label="开始" min-width="100">
           <template slot-scope="scope">
             <el-button
-              v-if="scope.row.state=='00'"
+              v-if="scope.row.state=='0'"
               type="primary"
               @click="startTask(scope.row)"
               icon="el-icon-success"
             >开始</el-button>
             <el-button
-              v-if="scope.row.state=='01'"
+              v-if="scope.row.state=='1'"
               type="primary"
               @click="endTaskFun(scope.row)"
               icon="el-icon-success"
             >完成</el-button>
             <el-button
-              v-if="scope.row.state=='21'"
+              v-if="scope.row.state=='2'"
               type="primary"
               @click="endTaskFun(scope.row)"
               icon="el-icon-success"
             >提交</el-button>
             <el-button
-              v-if="scope.row.state=='22'"
+              v-if="scope.row.state=='3'"
               type="primary"
               @click="startTask(scope.row)"
               icon="el-icon-success"
@@ -81,6 +81,12 @@
         <el-table-column label="质量" min-width="100">
           <template slot-scope="scope">
             <el-rate v-model="scope.row.quality" show-text></el-rate>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="数量" min-width="100">
+          <template slot-scope="scope">
+            <el-rate v-model="scope.row.num" show-text></el-rate>
           </template>
         </el-table-column>
 
@@ -253,7 +259,7 @@ export default {
         },
         {
           value: "01",
-          label: "单词"
+          label: "单次"
         }
       ],
        eventTypeOptions: [
@@ -371,10 +377,11 @@ export default {
       this.form.eventSort = "";
     },
     startTask(data) {
-      var data = {
-        id: data.id,
-        eventId: data.eventId
-      };
+      // debugger
+      // var data = {
+      //   id: data.id,
+      //   eventId: data.eventId
+      // };
       startEvenTask(data).then(response => {
         if (response.status == "success") {
           this.$message.success("成功");
@@ -396,6 +403,9 @@ export default {
         var data = {
           id: data.id,
           eventId: data.eventId,
+          eventOrderId:data.eventOrderId,
+          num:data.num,
+          fullNum:data.fullNum,
           quality: data.quality
         };
         endEvenTask(data).then(response => {
