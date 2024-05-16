@@ -86,7 +86,7 @@
 
         <el-table-column label="数量" min-width="100">
           <template slot-scope="scope">
-            <el-rate v-model="scope.row.num" show-text></el-rate>
+            <el-input v-model="scope.row.num" label-width="10px" placeholder="数量"></el-input>
           </template>
         </el-table-column>
 

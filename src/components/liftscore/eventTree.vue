@@ -26,7 +26,7 @@
               <el-button
                 type="text"
                 size="mini"
-                v-if="data.identity!='00'"
+                v-if="data.identity!='0'"
                 @click="() => remove(node, data)"
               >Delete</el-button>
             </span>
@@ -79,7 +79,7 @@
             label="事件类型"
             :label-width="formLabelWidth"
             prop="workerType"
-            v-show="form.nodeIdentity=='11'&&optionType=='add'"
+            v-show="form.nodeIdentity=='2'&&optionType=='add'"
           >
             <el-select v-model="form.eventType" clearable size="medium">
               <el-option
@@ -95,8 +95,7 @@
             label="预计额度"
             prop="eventName"
             id="fullNumInp"
-            v-show="form.nodeIdentity=='11'&&form.eventType!='01'"
-          >
+            v-show="form.nodeIdentity=='2'">
             <el-input v-model="form.fullNum" type="text" clearable size="medium"></el-input>
           </el-form-item>
           <el-form-item label="备注" prop="name">
@@ -188,13 +187,13 @@ export default {
         "01": "二级 "
       },
       eventTypeOptions: {
-        "00": "时间类型",
-        "11": "长度类型",
-        "01": "单次事件"
+        "0": "时间类型",
+        "1": "长度类型",
+        "2": "单次事件"
       },
       eventNodeTypeOptions: {
-        "01": "分类",
-        "11": "任务"
+        "1": "分类",
+        "2": "任务"
       }
     };
   },
@@ -221,12 +220,15 @@ export default {
     },
     show(data) {
       this.resetForm();
+      debugger
+      console.log("------77-----"+data.nodeIdentity)
       this.form.eventId = data.eventId;
       this.form.eventName = data.eventName;
       var iii = parseInt(data.proportion);
       this.form.proportion = iii;
       this.form.remark = data.remark;
-      this.form.fullNum = data.ullNum;
+      this.form.fullNum = data.fullNum;
+      this.form.parent = data.parent;
       this.form.eventType = data.eventType;
       this.form.nodeIdentity = data.identity;
       this.dialogFormVisible = true;
@@ -295,7 +297,7 @@ export default {
     //new ing 新增事件
     addEventFun() {
       debugger
-      if (this.form.nodeIdentity == "01") {
+      if (this.form.nodeIdentity == "1") {
         //分类
         if (this.form.eventName == null || this.form.eventName == "") {
           this.$message.error("名称不能为空");
@@ -304,7 +306,7 @@ export default {
           this.$message.error("占比不能为空");
           return;
         }
-      } else if (this.form.nodeIdentity == "11") {
+      } else if (this.form.nodeIdentity == "2") {
         //任务
         if (this.form.eventName == null || this.form.eventName == "") {
           this.$message.error("名称不能为空");
@@ -318,7 +320,7 @@ export default {
         ) {
           this.$message.error("身份不能为空");
           return;
-        } else if (this.form.eventType == null || this.form.eventType == "") {
+        } else if (this.form.eventType == null) {
           this.$message.error("类型不能为空");
           return;
         }
@@ -344,7 +346,7 @@ export default {
           eventType: this.form.eventType,
           level: this.form.level + 1,
           proportion: this.form.proportion,
-          ullNum: this.form.fullNum,
+          fullNum: this.form.fullNum,
           remark: this.form.remark,
           parent: this.form.parent,
           identity: this.form.nodeIdentity,
@@ -366,7 +368,8 @@ export default {
           eventName: this.form.eventName,
           eventId: this.form.eventId,
           proportion: this.form.proportion,
-          ullNum: this.form.fullNum,
+          fullNum: this.form.fullNum,
+          parent: this.form.parent,
           remark: this.form.remark
         };
         updateEvent(data).then(response => {
