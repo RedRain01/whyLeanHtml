@@ -29,6 +29,8 @@
     
 <script>
 Vue.filter("dateFormat003", function(score) {
+  console.log("================="+score)
+
   switch (true) {
     case score < 30:
       return "#B22222";
@@ -61,7 +63,7 @@ export default {
       };
       countToday(data).then(response => {
         if (response.status == "success") {
-          this.countData = response.list;
+          this.countData = response.data;
         } else if (response.status == "error") {
           this.$message.error(response.msg);
         } else {

@@ -85,11 +85,16 @@
         </el-table-column>
 
         <el-table-column label="数量" min-width="100">
-          <template slot-scope="scope">
-            <el-input v-model="scope.row.num" label-width="10px" placeholder="数量"></el-input>
+          <template slot-scope="scope"  >
+              <el-time-picker v-show="scope.row.eventType==0" style="width: 200px;" v-model="scope.row.startTime"  placeholder="任意时间点">
+               </el-time-picker>
+             <el-time-picker  v-show="scope.row.eventType==0"    style="width: 200px;" v-model="scope.row.endTime"  placeholder="任意时间点">
+             </el-time-picker>
+            <el-input v-model="scope.row.num"  v-show="scope.row.eventType==1"  style="width: 200px;" placeholder="数量"></el-input>
           </template>
         </el-table-column>
 
+   
         <el-table-column label="分数" min-width="100">
           <template slot-scope="scope">
             <el-tag :type="scope.row|scoreFilter">{{scope.row.score>1?scope.row.score:'零'}}</el-tag>
@@ -174,7 +179,7 @@
 
 <script>
 Vue.filter("dateFormat", function(dataStr) {
-  var score = (dataStr.num / dataStr.ullNum) * 100;
+  var score = (dataStr.num / dataStr.fullNum) * 100;
   switch (true) {
     case score < 30:
       return "#B22222";
@@ -229,6 +234,8 @@ export default {
   name: "staffInfo",
   data() {
     return {
+      value1: new Date(2016, 9, 10, 18, 40),
+        value2: new Date(2016, 9, 10, 18, 40),
       testDate: new Date(),
       value4: ["2022-03-25 07:41:19", "2022-03-25 07:41:01"],
       value3: null,
@@ -311,6 +318,8 @@ export default {
         eventType: "",
         proportion: "",
         remark: "",
+        startTime: "",
+        endTime: "",
         parent: "",
         level: "",
         eventSort: "",
@@ -320,6 +329,7 @@ export default {
     };
   },
   mounted() {
+    this.firstQuery()
   },
   methods: {
     updateTaskSplitFun(data) {
@@ -405,6 +415,8 @@ export default {
           eventId: data.eventId,
           eventOrderId:data.eventOrderId,
           num:data.num,
+          startTime:data.startTime,
+          endTime:data.endTime,
           fullNum:data.fullNum,
           quality: data.quality
         };
@@ -418,7 +430,6 @@ export default {
         });
       }
     },
-
     createEventOrder() {
       var data = {
         };
@@ -437,12 +448,12 @@ export default {
         eventType: this.evenOrderTypeSerc
       };
       this.loading = true;
-      
       queryEventOrder(data)
         .then(response => {
+        debugger
           if (response.status == "success") {
-            this.loading = false;
             this.tableDataEventOrder = response.data;
+            this.loading = false;
           } else if (response.status == "error") {
             this.$message.error(response.msg);
           }
