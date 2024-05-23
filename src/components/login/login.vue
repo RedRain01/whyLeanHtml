@@ -29,12 +29,9 @@
           <div>
             <input
               type="text"
+              id="username"
               placeholder="邀请码"
-              autocomplete="off"
-              required
-              id="inviteCode"
-              class="inputWrap"
-              v-model="password"
+              v-model="inviteCode"
             />
           </div>
           <div>
@@ -58,7 +55,7 @@
 </template>
 
 <script>
-import { login } from "@/api/login/login";
+import { login,register } from "@/api/login/login";
 export default {
   data() {
     return {
@@ -128,20 +125,15 @@ export default {
         debugger
         var data = {
           userName: this.userCode,
+          inviteCode: this.inviteCode,
           password: this.password
         };
-        login(data).then(result => {
+        register(data).then(result => {
           debugger
-          if (result  != "") {
-            this.$message.success("登录成功");
-            localStorage.setItem("Authorization",result.token);
-            // debugger
-            // localStorage.setItem("menu", JSON.stringify(result.data.menu));
-            // localStorage.setItem("user", JSON.stringify(result.data.user));
-            // localStorage.setItem("userInformation", JSON.stringify(result.data.user));
-            this.$router.push({ name: "liftscore" });
+          if (result.status  == "success") {
+            this.$message.success("注册成功");
           } else {
-            this.$message.error(result.message);
+            this.$message.error(result.msg);
           }
         });
       } else {
