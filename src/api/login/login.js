@@ -17,7 +17,7 @@ export function getMcryptKey(data){
 }
 export function login(data){
     return request({
-      url: 'api/auth/login',
+      url: 'auth/login',
       method: 'post',
       data
     })

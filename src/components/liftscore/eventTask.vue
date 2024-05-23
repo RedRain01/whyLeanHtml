@@ -181,6 +181,8 @@
 Vue.filter("dateFormat", function(dataStr) {
   var score = (dataStr.num / dataStr.fullNum) * 100;
   switch (true) {
+    case score <1:
+      return "";
     case score < 30:
       return "#B22222";
     case score < 60:
@@ -195,11 +197,11 @@ Vue.filter("dateFormat", function(dataStr) {
 });
 Vue.filter("dateFormat001", function(dataStr) {
   switch (true) {
-    case dataStr.state == "00":
-      return "#F56C6C";
-    case dataStr.state == "11":
+    case dataStr.state == "0":
+      return "#EBEEF5";
+    case dataStr.state == "1":
       return "#67C23A";
-    case dataStr.state == "01":
+    case dataStr.state == "2":
       return "#E6A23C";
     default:
       return "#409EFF";
@@ -443,6 +445,7 @@ export default {
         });
     },
     firstQuery() {
+      debugger
       var data = {
         state: this.eventOrderStaSerc,
         eventType: this.evenOrderTypeSerc

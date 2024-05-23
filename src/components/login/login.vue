@@ -3,7 +3,7 @@
     <div class="container">
       <section id="content">
         <div id="form">
-          <h1>新222月</h1>
+          <h1>新月</h1>
           <div>
             <input
               type="text"
@@ -27,7 +27,19 @@
             />
           </div>
           <div>
-            <button @click="submit">登录123</button>
+            <input
+              type="text"
+              placeholder="邀请码"
+              autocomplete="off"
+              required
+              id="inviteCode"
+              class="inputWrap"
+              v-model="password"
+            />
+          </div>
+          <div>
+            <button @click="submit">登录</button>
+            <button @click="submit2">注册</button>
             <!-- <a href="#">忘记密码?</a> -->
             <!-- <a href="#">Register</a> -->
           </div>
@@ -53,6 +65,7 @@ export default {
       pgeditor: "",
       box: "",
       userCode: "",
+      inviteCode: "",
       password: ""
     };
   },
@@ -79,7 +92,7 @@ export default {
       if (this.userCode && this.password != null) {
         debugger
         var data = {
-          username: this.userCode,
+          userName: this.userCode,
           password: this.password
         };
         // {
@@ -95,23 +108,44 @@ export default {
         // }
         login(data).then(result => {
           debugger
-          if (result.message == "成功登录") {
+          if (result  != "") {
             this.$message.success("登录成功");
-            localStorage.setItem(
-              "Authorization",
-              "Bearer " + result.data.user.token
-            );
-            debugger
-            localStorage.setItem("menu", JSON.stringify(result.data.menu));
-            localStorage.setItem("user", JSON.stringify(result.data.user));
-            localStorage.setItem("userInformation", JSON.stringify(result.data.user));
-            this.$router.push({ name: "test" });
+            localStorage.setItem("Authorization",result.token);
+            // debugger
+            // localStorage.setItem("menu", JSON.stringify(result.data.menu));
+            // localStorage.setItem("user", JSON.stringify(result.data.user));
+            // localStorage.setItem("userInformation", JSON.stringify(result.data.user));
+            this.$router.push({ name: "liftscore" });
           } else {
             this.$message.error(result.message);
           }
         });
       } else {
         this.$message.warning("请输入账号或密码");
+      }
+    }, submit2() {
+      if (this.userCode && this.password != null && this.inviteCode != null) {
+        debugger
+        var data = {
+          userName: this.userCode,
+          password: this.password
+        };
+        login(data).then(result => {
+          debugger
+          if (result  != "") {
+            this.$message.success("登录成功");
+            localStorage.setItem("Authorization",result.token);
+            // debugger
+            // localStorage.setItem("menu", JSON.stringify(result.data.menu));
+            // localStorage.setItem("user", JSON.stringify(result.data.user));
+            // localStorage.setItem("userInformation", JSON.stringify(result.data.user));
+            this.$router.push({ name: "liftscore" });
+          } else {
+            this.$message.error(result.message);
+          }
+        });
+      } else {
+        this.$message.warning("请输入账号,密码,邀请码");
       }
     }
     // 兼容ie interval
