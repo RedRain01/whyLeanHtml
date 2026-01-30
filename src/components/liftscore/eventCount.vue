@@ -6,7 +6,7 @@
 
       <el-form-item label="查看时间选择">
         <el-date-picker
-          value-format="yyyy-MM-dd HH:mm:ss"
+          value-format="yyyy-MM-d"
           v-model="dateParam"
           type="datetime"
           placeholder="选择时间"

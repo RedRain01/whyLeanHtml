@@ -37,6 +37,14 @@ export function queryEventOrder(data){
   })
 }
 
+export function deleteEventOrder(data){
+  return request({
+    url: 'api/event/deleteEventOrder',
+    method: 'post',
+    data
+  })
+}
+
 
 export function startEvenTask(data){
   return request({
@@ -109,6 +117,31 @@ export function startTaskOrder(data){
     url: '/api/event/startTaskOrder',
     method: 'post',
     data
+  })
+}
+
+export function distincEventOrderDate(data){
+  return request({
+    url: '/api/event/distincEventOrderDate',
+    method: 'get',
+    data
+  })
+}
+
+
+export function statistics24h(params){
+  return request({
+    url: '/api/event/statistics24h',
+    method: 'get',
+    params
+  })
+}
+
+export function countScore15day(params){
+  return request({
+    url: '/api/event/countScore15day',
+    method: 'get',
+    params
   })
 }
 

@@ -22,12 +22,16 @@
       <el-tab-pane label="任务统计">
         <StatisticalEvent></StatisticalEvent>
       </el-tab-pane>
+      <el-tab-pane label="24h统计">
+        <Statistical24h></Statistical24h>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 <script>
 
 
+import Statistical24h from '@/components/liftscore/statistical24h.vue'
 import StatisticalEvent from '@/components/liftscore/statisticalEvent.vue'
 import EventTask from '@/components/liftscore/eventTask.vue'
 import EventTree from '@/components/liftscore/eventTree.vue'
@@ -36,6 +40,7 @@ export default {
     components: {
     EventTree,
     EventCount,
+    Statistical24h,
     EventTask,
     StatisticalEvent
   },

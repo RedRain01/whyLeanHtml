@@ -109,6 +109,11 @@
       </div>
     </el-dialog>
     <!-- 新增事件树弹框end  -->
+
+
+    <div width="1400px">
+      <ve-pie width="1200px" height="400px" :data="portData"></ve-pie>
+    </div>
   </div>
 </template>
 
@@ -128,6 +133,13 @@ export default {
   data() {
     var data = [];
     return {
+            portData: {
+        columns: ["name", "value"],
+        rows: [
+          { name: "8488", value: 200 },
+          { name: "8487", value: 100 }
+        ]
+      },
       data: [{
           id: 1,
           label: '一级 1',
@@ -284,10 +296,85 @@ export default {
       this.form.nodeIdentity = "";
     },
     //new ing 获取树形
+sumFullScor33e(tree, conditionFn) {
+  let total = 0
+  const rows = []
+  function  traverse(nodeList) {
+    nodeList.forEach(node => {
+      // 满足条件则累加
+      if (conditionFn(node)) {
+        total += node.fullNum || 0
+        this.rows.push({
+          name: node.eventName,
+          value: node.fullNum
+        })
+      }
+
+      // 递归遍历 children
+      if (node.children && node.children.length > 0) {
+        traverse(node.children)
+      }
+    })
+  }
+  traverse(tree)
+  return rows
+},
+
+sumFullScore(tree, conditionFn) {
+  const rows = []
+  let total = 0
+
+
+  const traverse = (nodes) => {
+    // 防止 nodes 是 undefined 或 null
+    if (!Array.isArray(nodes)) return
+
+    nodes.forEach(node => {
+      // 条件成立才收集
+      if (conditionFn(node)) {
+        let value = node.fullNum
+
+// 判断 value 是否有效（不为 null、不为 undefined、不为 0）
+            if (value != null && value !== 0) {
+              value = Number((value / 60).toFixed(2)) // ✅ 除以60并保留两位小数
+            } else {
+              value = 0
+            }
+            total=total+value
+            rows.push({
+              name: node.eventName,
+              value
+            })
+          }
+
+      // 递归 children
+      if (Array.isArray(node.children) && node.children.length > 0) {
+        traverse(node.children)
+      }
+
+
+    })
+  }
+
+  traverse(tree)
+  rows.push({
+              name: "other",
+              value:24-total
+            })
+  this.portData.rows=rows
+  return rows
+},
+
+    //new ing 获取树形
     queryTree() {
       queryEventByUserCode().then(response => {
         if (response.status == "success") {
           this.eventDate = response.data;
+          const rows = this.sumFullScore(
+  response.data,
+  node => node.eventType != null && node.eventType !== "" && Number(node.eventType) === 0)
+console.log('rows:', rows)
+this.rows = rows
         } else if (response.status == "error") {
           this.$message.error(response.msg);
         } else {
@@ -302,19 +389,23 @@ export default {
         if (this.form.eventName == null || this.form.eventName == "") {
           this.$message.error("名称不能为空");
           return;
-        } else if (this.form.proportion == null || this.form.proportion == "") {
-          this.$message.error("占比不能为空");
-          return;
-        }
+        } 
+        // 加入自定义类型  去除占比限制
+        // else if (this.form.proportion == null || this.form.proportion == "") {
+        //   this.$message.error("占比不能为空");
+        //   return;
+        // }
       } else if (this.form.nodeIdentity == "2") {
         //任务
         if (this.form.eventName == null || this.form.eventName == "") {
           this.$message.error("名称不能为空");
           return;
-        } else if (this.form.proportion == null || this.form.proportion == "") {
-          this.$message.error("占比不能为空");
-          return;
-        } else if (
+        }
+        // else if (this.form.proportion == null || this.form.proportion == "") {
+        //   this.$message.error("占比不能为空");
+        //   return;
+        // } 
+        else if (
           this.form.nodeIdentity == null ||
           this.form.nodeIdentity == ""
         ) {
